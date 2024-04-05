@@ -40,7 +40,6 @@ const login = async (req, res) => {
         'Please login again!',
       );
     refreshToken = existingToken.refreshToken;
-
     attachCookiesToResponse({ res, user: userToken, refreshToken });
     res.status(StatusCodes.OK).json({ user: userToken });
     return;
@@ -115,8 +114,22 @@ const verifyEmail = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'Email verified!' });
 };
 
+const logout = async (req, res) => {
+  await Token.findOneAndDelete({user: req.user.user_id})
+  res.cookie('accessToken', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  });
+  res.cookie('refreshToken', 'logout', {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+  });
+  res.status(StatusCodes.OK).json({ msg: 'User logged out!' });
+}
+
 module.exports = {
   login,
   register,
   verifyEmail,
+  logout
 };

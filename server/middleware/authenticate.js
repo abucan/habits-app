@@ -6,7 +6,6 @@ const Token = require('../models/Token');
 const CustomError = require('../errors');
 
 const authenticateUser = async (req, res, next) => {
-  console.log('signed cookies', req.signedCookies);
   const { refreshToken, accessToken } = req.signedCookies;
 
   try {
@@ -17,7 +16,6 @@ const authenticateUser = async (req, res, next) => {
     }
 
     const payload = isTokenValid(refreshToken);
-    console.log(payload);
     const existingToken = await Token.findOne({
       user: payload.user.user_id,
       refreshToken: payload.refreshToken,
@@ -36,10 +34,25 @@ const authenticateUser = async (req, res, next) => {
     req.user = payload.user;
     next();
   } catch (error) {
+    console.log(error);
     throw new CustomError.UnauthenticatedError(
       'Authentication Invalid.',
     );
   }
 };
 
-module.exports = authenticateUser;
+const authorizePermissions = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      throw new CustomError.UnauthorizedError(
+        'Unauthorized to access this route'
+      );
+    }
+    next();
+  };
+};
+
+module.exports = {
+  authenticateUser,
+  authorizePermissions,
+};
