@@ -17,7 +17,7 @@ const authenticateUser = async (req, res, next) => {
 
     const payload = isTokenValid(refreshToken);
     const existingToken = await Token.findOne({
-      user: payload.user.user_id,
+      user: payload.user.userId,
       refreshToken: payload.refreshToken,
     });
 
@@ -34,7 +34,6 @@ const authenticateUser = async (req, res, next) => {
     req.user = payload.user;
     next();
   } catch (error) {
-    console.log(error);
     throw new CustomError.UnauthenticatedError(
       'Authentication Invalid.',
     );
@@ -45,7 +44,7 @@ const authorizePermissions = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       throw new CustomError.UnauthorizedError(
-        'Unauthorized to access this route'
+        'Unauthorized to access this route',
       );
     }
     next();

@@ -19,6 +19,8 @@ const connectToDB = require('./db/connect');
 // routers
 const authRouter = require('./routes/authRoutes');
 const userRouter = require('./routes/userRoutes');
+const habitRouter = require('./routes/habitRoutes');
+const habitLogRouter = require('./routes/habitLogRoutes');
 
 // middleware
 const notFoundMiddleware = require('./middleware/not-found');
@@ -36,25 +38,27 @@ app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
 
 app.get('/', (req, res) => {
-    res.send('Hello World');
-})
+  res.send('Hello World');
+});
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
-app.use(notFoundMiddleware)
-app.use(errorHandlerMiddleware)
+app.use('/api/v1/habits', habitRouter);
+app.use('/api/v1/habit-logs', habitLogRouter);
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 3000;
 
 const start = async () => {
-    try {
-        await connectToDB(process.env.MONGO_URL);
-        app.listen(port, () => {
-            console.log(`Server is running on PORT ${port}`);
-        });
-    } catch (error) {
-        console.log(error);
-    }
-}
+  try {
+    await connectToDB(process.env.MONGO_URL);
+    app.listen(port, () => {
+      console.log(`Server is running on PORT ${port}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 start();
