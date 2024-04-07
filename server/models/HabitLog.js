@@ -13,8 +13,7 @@ const HabitLogSchema = new mongoose.Schema({
         required: true,
       },
       isCompleted: {
-        type: String,
-        enum: ['completed', 'failed'],
+        type: Boolean,
         required: true,
       },
     },

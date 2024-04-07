@@ -8,7 +8,6 @@ const updateHabitProgress = async (req, res) => {
   const { id: habitId } = req.params;
   const { isCompleted, date } = req.body;
 
-  // check the case if habit in Habit Model does not exist
   const habitExists = await Habit.findOne({
     _id: habitId,
     user: user.userId,
@@ -21,59 +20,81 @@ const updateHabitProgress = async (req, res) => {
     habitId,
   });
 
-  if (!habitLog) {
-    habitLog = await HabitLog.create({
-      habitId,
-      progressHistory: [
-        {
-          isCompleted,
-          date,
-        },
-      ],
-      habitStreak: isCompleted === 'completed' ? 1 : 0,
-    });
-  } else {
-    // check here
-    const dateAlreadyExists = habitLog.progressHistory.some(
-      (progress) =>
-        progress.date.toDateString() ===
-        new Date(date).toDateString(),
-    );
-    console.log(dateAlreadyExists);
-    if (dateAlreadyExists) {
-      console.log('changing only the isCompleted value');
-      const habitProgress = habitLog.progressHistory.find(
-        (progress) =>
-          progress.date.toDateString() ===
-          new Date(date).toDateString(),
-      );
-      if (
-        habitProgress.isCompleted === 'completed' &&
-        isCompleted === 'completed'
-      ) {
-        habitLog.habitStreak =
-          habitLog.progressHistory
-            .map((progress) => progress.isCompleted)
-            .lastIndexOf('completed') + 1;
-      } else {
-        habitLog.habitStreak = 0;
-      }
-      habitProgress.isCompleted = isCompleted;
-    } else {
-      console.log('pushing new progress');
-      habitLog.progressHistory.push({ isCompleted, date });
-      if (isCompleted === 'completed') {
-        habitLog.habitStreak += 1;
-      } else {
-        habitLog.habitStreak = 0;
-      }
-    }
+  dateAlreadyExists = habitLog.progressHistory.some(
+    (progress) =>
+      progress.date.toISOString().split('T')[0] ===
+      date.split('T')[0],
+  );
 
-    await habitLog.save();
+  if (dateAlreadyExists) {
+    habitLog.progressHistory = habitLog.progressHistory.map(
+      (progress) => {
+        if (
+          progress.date.toISOString().split('T')[0] ===
+          date.split('T')[0]
+        ) {
+          progress.isCompleted = isCompleted;
+        }
+        return progress;
+      },
+    );
+  } else {
+    habitLog.progressHistory.push({
+      date,
+      isCompleted,
+    });
   }
+
+  await updateHabitStreak(habitLog);
+
   res.status(StatusCodes.OK).json({ habitLog });
+};
+
+const updateHabitStreak = async (habitLog) => {
+  const { progressHistory } = habitLog;
+  let currentStreak = 0;
+  let longestStreak = 0;
+  let previousDate;
+
+  for (const progress of progressHistory) {
+    const currentDate = new Date(progress.date);
+
+    // Check if progress entry is completed for the current day
+    if (progress.isCompleted) {
+      // Skip the first iteration as there's no previous date yet
+      if (!previousDate) {
+        previousDate = currentDate;
+        currentStreak++;
+        longestStreak = currentStreak;
+        continue;
+      }
+
+      const timeDifference = currentDate - previousDate;
+      const daysDifference = timeDifference / (1000 * 3600 * 24);
+
+      // If progress is consecutive, increment streaks
+      if (daysDifference === 1) {
+        currentStreak++;
+        longestStreak = Math.max(longestStreak, currentStreak);
+      } else {
+        // Reset current streak if progress is not consecutive
+        currentStreak = 1;
+      }
+
+      previousDate = currentDate;
+    } else {
+      // Reset current streak if progress is not completed
+      currentStreak = 0;
+      previousDate = null;
+    }
+  }
+
+  habitLog.habitStreak = currentStreak;
+  console.log('longest streak', longestStreak);
+  await habitLog.save();
 };
 
 module.exports = {
   updateHabitProgress,
+  updateHabitStreak,
 };

@@ -76,4 +76,17 @@ const HabitSchema = new mongoose.Schema({
   },
 });
 
+HabitSchema.post('save', async function (doc, next) {
+  const existingHabitLog = await mongoose.models.HabitLog.findOne({
+    habitId: doc._id,
+  });
+
+  if (!existingHabitLog)
+    await mongoose.models.HabitLog.create({
+      habitId: doc._id,
+      progressHistory: [{ date: Date.now(), isCompleted: false }],
+    });
+  next();
+});
+
 module.exports = mongoose.model('Habit', HabitSchema);
