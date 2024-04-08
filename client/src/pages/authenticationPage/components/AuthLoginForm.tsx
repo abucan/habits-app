@@ -8,11 +8,12 @@ import { LoginFormValues } from '@/ts/types/app_types';
 import { loginSchema } from '@/ts/schemas/app_schemas';
 import { FormTextInput } from './FormTextInput';
 
-export const ProfileForm = () => {
+export const AuthLoginForm = () => {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      username: '',
+      email: '',
+      password: '',
     },
   });
 
@@ -22,13 +23,23 @@ export const ProfileForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className='space-y-6'
+      >
         <FormTextInput
-          name='username'
-          label='Username'
-          description='Enter your username'
+          name='email'
+          label='Email'
+          placeholder='johndoe@mail.com'
         />
-        <Button type='submit'>Submit</Button>
+        <FormTextInput
+          name='password'
+          label='Password'
+          placeholder='*******'
+        />
+        <Button type='submit' className='w-full'>
+          Submit
+        </Button>
       </form>
     </Form>
   );

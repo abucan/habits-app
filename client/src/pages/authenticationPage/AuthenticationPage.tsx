@@ -1,49 +1,49 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { AuthLoginForm } from './components/AuthLoginForm';
+import { AuthRegisterForm } from './components/AuthRegisterForm';
+import { useCallback, useState } from 'react';
+import { AuthHeader } from './components/AuthHeader';
 
 const AuthenticationPage = () => {
+  const [activeTab, setActiveTab] = useState<'login' | 'register'>(
+    'login',
+  );
+
+  const handleTabChange = useCallback(() => {
+    setActiveTab(activeTab === 'login' ? 'register' : 'login');
+  }, [activeTab]);
+
   return (
     <div className='w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen'>
       <div className='flex items-center justify-center py-12'>
         <div className='mx-auto grid w-[350px] gap-6'>
-          <div className='grid gap-2 text-center'>
-            <h1 className='text-3xl font-bold'>Login</h1>
-            <p className='text-balance text-muted-foreground'>
-              Enter your email below to login to your account
-            </p>
-          </div>
-          <div className='grid gap-4'>
-            <div className='grid gap-2'>
-              <Label htmlFor='email'>Email</Label>
-              <Input
-                id='email'
-                type='email'
-                placeholder='m@example.com'
-                required
-              />
-            </div>
-            <div className='grid gap-2'>
-              <div className='flex items-center'>
-                <Label htmlFor='password'>Password</Label>
-                <Link
-                  to='/forgot-password'
-                  className='ml-auto inline-block text-sm underline'
-                >
-                  Forgot your password?
-                </Link>
-              </div>
-              <Input id='password' type='password' required />
-            </div>
-            <Button type='submit' className='w-full'>
-              Login
-            </Button>
-          </div>
+          {activeTab === 'login' && (
+            <AuthHeader
+              title='Login'
+              description='Please use your credentials to login.'
+            />
+          )}
+          {activeTab === 'register' && (
+            <AuthHeader
+              title='Register'
+              description='Please fill in the form to create an account.'
+            />
+          )}
+          {activeTab === 'login' ? (
+            <AuthLoginForm />
+          ) : (
+            <AuthRegisterForm />
+          )}
           <div className='mt-4 text-center text-sm'>
-            Don&apos;t have an account?{' '}
-            <Link to='#' className='underline'>
-              Sign up
+            {activeTab === 'login'
+              ? 'Don’t have an account?'
+              : 'Already have an account?'}
+            <Link
+              to='#'
+              className='underline ml-1'
+              onClick={handleTabChange}
+            >
+              {activeTab === 'login' ? 'Register' : 'Login'}
             </Link>
           </div>
         </div>

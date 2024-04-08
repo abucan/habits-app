@@ -14,6 +14,7 @@ export const FormTextInput = ({
   name,
   label,
   description,
+  placeholder,
   disabled,
 }: FormTextInputProps) => {
   const { control } = useFormContext();
@@ -26,13 +27,15 @@ export const FormTextInput = ({
           <FormLabel>{label}</FormLabel>
           <FormControl>
             <Input
-              placeholder='max'
+              placeholder={placeholder}
               {...field}
               disabled={disabled}
               type={name === 'password' ? 'password' : 'text'}
             />
           </FormControl>
-          <FormDescription>{description}</FormDescription>
+          {description && (
+            <FormDescription>{description}</FormDescription>
+          )}
           <FormMessage />
         </FormItem>
       )}
