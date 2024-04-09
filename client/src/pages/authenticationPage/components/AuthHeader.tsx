@@ -5,7 +5,7 @@ export const AuthHeader = ({
   description,
 }: AuthHeaderProps) => {
   return (
-    <div className='grid gap-2 text-center'>
+    <div className='grid gap-2 text-left'>
       <h1 className='text-3xl font-bold'>{title}</h1>
       <p className='text-balance text-muted-foreground'>
         {description}
