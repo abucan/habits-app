@@ -1,4 +1,5 @@
 import AuthenticationPage from '@/pages/authenticationPage/AuthenticationPage';
+import VerifyPageEmail from '@/pages/verifyEmailPage/VerifyEmailPage';
 import {
   RouterProvider,
   createBrowserRouter,
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
     path: '/auth',
     element: <AuthenticationPage />,
     children: [{}],
+  },
+  {
+    path: '/verify-email',
+    element: <VerifyPageEmail />,
   },
 ]);
 

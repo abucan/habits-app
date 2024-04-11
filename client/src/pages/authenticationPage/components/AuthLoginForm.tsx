@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -6,7 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { LoginFormValues } from '@/ts/types/app_types';
 import { loginSchema } from '@/ts/schemas/app_schemas';
-import { FormTextInput } from './FormTextInput';
+import { FormTextInput } from '../../../components/FormTextInput';
+import { useAppDispatch } from '@/store/configureStore';
+import { loginUser } from '@/features/userSlice';
 
 export const AuthLoginForm = () => {
   const form = useForm<LoginFormValues>({
@@ -17,8 +20,15 @@ export const AuthLoginForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof loginSchema>) => {
-    console.log(values);
+  const dispatch = useAppDispatch();
+
+  const onSubmit = async (values: z.infer<typeof loginSchema>) => {
+    try {
+      const user = await dispatch(loginUser(values));
+      if (!!user.payload) console.log('passed');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -26,10 +26,16 @@ const habitLogRouter = require('./routes/habitLogRoutes');
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
+const corsOptions = {
+  origin: 'http://localhost:5000',
+  credentials: true,
+  optionSuccessStatus: 200,
+};
+
 app.set('trust proxy', 1);
 app.use(morgan('dev'));
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(xss());
 app.use(mongoSanitize());
 

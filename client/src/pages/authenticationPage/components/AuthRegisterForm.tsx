@@ -6,20 +6,29 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { RegisterFormValues } from '@/ts/types/app_types';
 import { registerSchema } from '@/ts/schemas/app_schemas';
-import { FormTextInput } from './FormTextInput';
+import { FormTextInput } from '../../../components/FormTextInput';
+import { registerUser } from '@/features/userSlice';
+import { useAppDispatch } from '@/store/configureStore';
 
 export const AuthRegisterForm = () => {
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       email: '',
-      username: '',
+      name: '',
       password: '',
     },
   });
 
-  const onSubmit = (values: z.infer<typeof registerSchema>) => {
-    console.log(values);
+  const dispatch = useAppDispatch();
+
+  const onSubmit = async (values: z.infer<typeof registerSchema>) => {
+    try {
+      const result = await dispatch(registerUser(values));
+      console.log(result.payload);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -29,7 +38,7 @@ export const AuthRegisterForm = () => {
         className='space-y-6'
       >
         <FormTextInput
-          name='username'
+          name='name'
           label='Username'
           placeholder='john'
         />
