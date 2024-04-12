@@ -2,6 +2,7 @@
 import authApi from '@/api/authApi';
 import { LoginRequest } from '@/api/requests/LoginRequest';
 import { RegisterRequest } from '@/api/requests/RegisterRequest';
+import userApi from '@/api/userApi';
 import { UserLoginDto } from '@/models/UserLoginDto';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
@@ -23,7 +24,7 @@ export const loginUser = createAsyncThunk<UserLoginDto, LoginRequest>(
       thunkAPI.rejectWithValue({ error: error.message });
       throw error;
     }
-  },
+  }
 );
 
 export const registerUser = createAsyncThunk<string, RegisterRequest>(
@@ -36,7 +37,20 @@ export const registerUser = createAsyncThunk<string, RegisterRequest>(
       thunkAPI.rejectWithValue({ error: error.message });
       throw error;
     }
-  },
+  }
+);
+
+export const fetchUser = createAsyncThunk<UserLoginDto, void>(
+  'user/fetchUser',
+  async (_, thunkAPI) => {
+    try {
+      const user = await userApi.showCurrentUser();
+      return user;
+    } catch (error: any) {
+      thunkAPI.rejectWithValue({ error: error.message });
+      throw error;
+    }
+  }
 );
 
 export const userSlice = createSlice({
@@ -49,6 +63,13 @@ export const userSlice = createSlice({
       state.user = payload;
     });
     builder.addCase(loginUser.rejected, (state) => {
+      state.user = null;
+    });
+    builder.addCase(fetchUser.fulfilled, (state, action) => {
+      const { payload } = action;
+      state.user = payload;
+    });
+    builder.addCase(fetchUser.rejected, (state) => {
       state.user = null;
     });
   },

@@ -1,12 +1,19 @@
+import ProtectedRoute from '@/pages/ProtectedRoute';
 import AuthenticationPage from '@/pages/authenticationPage/AuthenticationPage';
 import VerifyPageEmail from '@/pages/verifyEmailPage/VerifyEmailPage';
-import {
-  RouterProvider,
-  createBrowserRouter,
-} from 'react-router-dom';
-
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 // route to
 const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <ProtectedRoute />,
+    children: [
+      {
+        index: true,
+        element: <div>Home</div>,
+      },
+    ],
+  },
   {
     path: '/auth',
     element: <AuthenticationPage />,
