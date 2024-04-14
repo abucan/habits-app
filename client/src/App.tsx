@@ -1,16 +1,22 @@
-import { useEffect } from 'react';
 import AppRouter from './router/AppRouter';
-import { useAppDispatch } from './store/configureStore';
 import { fetchUser } from './features/userSlice';
+import { useAppDispatch } from './store/configureStore';
+import { useEffect, useState } from 'react';
 
 const App = () => {
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log('App');
+    dispatch(fetchUser()).then(() => {
+      setIsLoading(false);
+    });
+  }, [dispatch]);
 
-    dispatch(fetchUser());
-  }, []);
+  // TODO: Add a loading spinner
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return <AppRouter />;
 };

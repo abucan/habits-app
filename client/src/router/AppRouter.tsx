@@ -1,18 +1,16 @@
 import ProtectedRoute from '@/pages/ProtectedRoute';
 import AuthenticationPage from '@/pages/authenticationPage/AuthenticationPage';
 import VerifyPageEmail from '@/pages/verifyEmailPage/VerifyEmailPage';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-// route to
-const router = createBrowserRouter([
+import {
+  RouterProvider,
+  createBrowserRouter,
+} from 'react-router-dom';
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const router = createBrowserRouter([
   {
     path: '/',
-    element: <ProtectedRoute />,
-    children: [
-      {
-        index: true,
-        element: <div>Home</div>,
-      },
-    ],
+    element: <div>First Page</div>,
   },
   {
     path: '/auth',
@@ -22,6 +20,16 @@ const router = createBrowserRouter([
   {
     path: '/verify-email',
     element: <VerifyPageEmail />,
+  },
+  {
+    path: '/dashboard',
+    element: <ProtectedRoute />,
+    children: [
+      {
+        index: true,
+        element: <div>Dashboard</div>,
+      },
+    ],
   },
 ]);
 

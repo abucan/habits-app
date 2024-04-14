@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
+import { Form, FormMessage } from '@/components/ui/form';
 import { RegisterFormValues } from '@/ts/types/app_types';
 import { registerSchema } from '@/ts/schemas/app_schemas';
 import { FormTextInput } from '../../../components/FormTextInput';
-import { registerUser } from '@/features/userSlice';
-import { useAppDispatch } from '@/store/configureStore';
+import authApi from '@/api/authApi';
+import { toast } from '@/components/ui/use-toast';
+import { CircleAlertIcon } from 'lucide-react';
+import { useEffect } from 'react';
 
 export const AuthRegisterForm = () => {
   const form = useForm<RegisterFormValues>({
@@ -18,18 +21,36 @@ export const AuthRegisterForm = () => {
       name: '',
       password: '',
     },
+    mode: 'onBlur',
   });
 
-  const dispatch = useAppDispatch();
+  const { isSubmitting, isValid, errors } = form.formState;
+  const { reset, formState } = form;
 
   const onSubmit = async (values: z.infer<typeof registerSchema>) => {
     try {
-      const result = await dispatch(registerUser(values));
-      console.log(result.payload);
-    } catch (error) {
-      console.log(error);
+      const result = await authApi.register(values);
+      toast({
+        title: 'Created an account!',
+        description:
+          result?.msg ||
+          'Please check your email to verify your account.',
+        variant: 'default',
+      });
+      reset();
+    } catch (error: any) {
+      form.setError('root', {
+        message: error?.response?.data?.msg,
+      });
+      return null;
     }
   };
+
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset();
+    }
+  }, [formState, reset]);
 
   return (
     <Form {...form}>
@@ -52,7 +73,17 @@ export const AuthRegisterForm = () => {
           label='Password'
           placeholder='*******'
         />
-        <Button type='submit' className='w-full'>
+        {errors.root && (
+          <FormMessage className=' bg-destructive/80 text-muted p-2 rounded-md flex flex-row items-center'>
+            <CircleAlertIcon className='h-4 w-4 mr-2' />
+            {errors.root.message}
+          </FormMessage>
+        )}
+        <Button
+          type='submit'
+          className='w-full'
+          disabled={isSubmitting || !isValid}
+        >
           Submit
         </Button>
       </form>

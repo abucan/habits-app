@@ -1,46 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import authApi from '@/api/authApi';
-import { LoginRequest } from '@/api/requests/LoginRequest';
-import { RegisterRequest } from '@/api/requests/RegisterRequest';
 import userApi from '@/api/userApi';
-import { UserLoginDto } from '@/models/UserLoginDto';
+import { User, UserLoginDto } from '@/models/UserLoginDto';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
 interface UserState {
-  user: UserLoginDto | null;
+  user: User | null;
 }
 
 const initialState: UserState = {
   user: null,
 };
 
-export const loginUser = createAsyncThunk<UserLoginDto, LoginRequest>(
-  'user/loginUser',
-  async (data, thunkAPI) => {
-    try {
-      const user = await authApi.login(data);
-      return user;
-    } catch (error: any) {
-      thunkAPI.rejectWithValue({ error: error.message });
-      throw error;
-    }
-  }
-);
-
-export const registerUser = createAsyncThunk<string, RegisterRequest>(
-  'user/registerUser',
-  async (data, thunkAPI) => {
-    try {
-      const response = await authApi.register(data);
-      return response;
-    } catch (error: any) {
-      thunkAPI.rejectWithValue({ error: error.message });
-      throw error;
-    }
-  }
-);
-
-export const fetchUser = createAsyncThunk<UserLoginDto, void>(
+export const fetchUser = createAsyncThunk<UserLoginDto>(
   'user/fetchUser',
   async (_, thunkAPI) => {
     try {
@@ -50,27 +20,27 @@ export const fetchUser = createAsyncThunk<UserLoginDto, void>(
       thunkAPI.rejectWithValue({ error: error.message });
       throw error;
     }
-  }
+  },
 );
 
 export const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(loginUser.fulfilled, (state, action) => {
+  reducers: {
+    setUser: (state, action) => {
       const { payload } = action;
       state.user = payload;
-    });
-    builder.addCase(loginUser.rejected, (state) => {
-      state.user = null;
-    });
+    },
+  },
+  extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       const { payload } = action;
-      state.user = payload;
+      state.user = payload.user;
     });
     builder.addCase(fetchUser.rejected, (state) => {
       state.user = null;
     });
   },
 });
+
+export const { setUser } = userSlice.actions;
