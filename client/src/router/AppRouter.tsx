@@ -1,6 +1,9 @@
-import ProtectedRoute from '@/pages/ProtectedRoute';
-import AuthenticationPage from '@/pages/authenticationPage/AuthenticationPage';
-import VerifyPageEmail from '@/pages/verifyEmailPage/VerifyEmailPage';
+import {
+  WelcomePage,
+  AuthenticationPage,
+  VerifyPageEmail,
+  ProtectedRoute,
+} from '@/pages';
 import {
   RouterProvider,
   createBrowserRouter,
@@ -10,7 +13,7 @@ import {
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>First Page</div>,
+    element: <WelcomePage />,
   },
   {
     path: '/auth',

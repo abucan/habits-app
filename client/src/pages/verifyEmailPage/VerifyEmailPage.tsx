@@ -5,17 +5,21 @@ import { AuthHeader } from '../authenticationPage/components/AuthHeader';
 import { Button } from '@/components/ui/button';
 import { useSearchParams } from 'react-router-dom';
 import authApi from '@/api/authApi';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { XCircle } from 'lucide-react';
 import { router } from '@/router/AppRouter';
 import { toast } from '@/components/ui/use-toast';
+import { Input } from '@/components/ui/input';
 
 const VerifyPageEmail = () => {
   const [searchParams] = useSearchParams();
   const [message, setMessage] = useState<string>('');
 
-  // TO:DO
-  // redirect if there is no token or email provided
+  useEffect(() => {
+    if (!searchParams.get('email') || !searchParams.get('token')) {
+      router.navigate('/auth');
+    }
+  }, [searchParams]);
 
   const verifyEmail = useCallback(async () => {
     try {
@@ -52,6 +56,10 @@ const VerifyPageEmail = () => {
             <AuthHeader
               title='Verify Email'
               description='Please verify your email to continue.'
+            />
+            <Input
+              disabled
+              value={searchParams.get('email')?.toString()}
             />
             <Button className='w-full' onClick={verifyEmail}>
               Verify Email
