@@ -3,17 +3,16 @@ import {
   AuthenticationPage,
   VerifyPageEmail,
   ProtectedRoute,
+  NotFoundPage,
 } from '@/pages';
-import {
-  RouterProvider,
-  createBrowserRouter,
-} from 'react-router-dom';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const router = createBrowserRouter([
   {
     path: '/',
     element: <WelcomePage />,
+    errorElement: <NotFoundPage />,
   },
   {
     path: '/auth',

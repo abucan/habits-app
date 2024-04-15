@@ -9,9 +9,7 @@ import { useAppSelector } from '@/store/configureStore';
 import { router } from '@/router/AppRouter';
 
 const AuthenticationPage = () => {
-  const [activeTab, setActiveTab] = useState<'login' | 'register'>(
-    'login',
-  );
+  const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
 
   const { user } = useAppSelector((state) => state.user);
 
@@ -45,7 +43,7 @@ const AuthenticationPage = () => {
   // ];
 
   return (
-    <div className='w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen '>
+    <div className='w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen'>
       <div className='flex items-center justify-center py-12 dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative'>
         <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
         <div>
@@ -64,11 +62,7 @@ const AuthenticationPage = () => {
                   description='Please fill in the form to create an account.'
                 />
               )}
-              {activeTab === 'login' ? (
-                <AuthLoginForm />
-              ) : (
-                <AuthRegisterForm />
-              )}
+              {activeTab === 'login' ? <AuthLoginForm /> : <AuthRegisterForm />}
               <div className='mt-4 text-center text-sm'>
                 {activeTab === 'login'
                   ? 'Don’t have an account?'
