@@ -1,3 +1,5 @@
+import { LucideIcon } from 'lucide-react';
+
 export interface FormTextInputProps {
   name: string;
   label: string;
@@ -9,4 +11,16 @@ export interface FormTextInputProps {
 export interface AuthHeaderProps {
   title: string;
   description: string;
+}
+
+export interface FeatureItemProps {
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+}
+
+export interface BenefitItemProps {
+  icon: LucideIcon;
+  title: string;
+  desc: string;
 }

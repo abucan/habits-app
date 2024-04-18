@@ -1,15 +1,18 @@
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { AuthLoginForm } from './components/AuthLoginForm';
 import { AuthRegisterForm } from './components/AuthRegisterForm';
 import { useCallback, useEffect, useState } from 'react';
 import { AuthHeader } from './components/AuthHeader';
-import introImg2 from '../../../public/intro1.png';
+// import introImg2 from '../../../public/intro1.png';
 import { Card } from '@/components/ui/card';
 import { useAppSelector } from '@/store/configureStore';
 import { router } from '@/router/AppRouter';
 
 const AuthenticationPage = () => {
-  const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
+  const [searchParams] = useSearchParams();
+  const [activeTab, setActiveTab] = useState<'login' | 'register'>(
+    searchParams.get('register') === 'true' ? 'register' : 'login'
+  );
 
   const { user } = useAppSelector((state) => state.user);
 
@@ -23,31 +26,32 @@ const AuthenticationPage = () => {
     setActiveTab(activeTab === 'login' ? 'register' : 'login');
   }, [activeTab]);
 
-  // const words = [
-  //   {
-  //     text: 'Start',
-  //   },
-  //   {
-  //     text: 'tracking',
-  //   },
-  //   {
-  //     text: 'your',
-  //   },
-  //   {
-  //     text: 'habits',
-  //   },
-  //   {
-  //     text: 'today.',
-  //     className: 'text-blue-500 dark:text-blue-500',
-  //   },
-  // ];
-
   return (
-    <div className='w-full lg:grid lg:min-h-screen lg:grid-cols-2 xl:min-h-screen'>
-      <div className='flex items-center justify-center py-12 dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative'>
-        <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]'></div>
-        <div>
-          {/* <TypewriterEffectSmooth words={words} /> */}
+    <main className='w-full flex'>
+      <div className='relative flex-1 hidden items-center justify-center h-screen bg-gray-900 lg:flex'>
+        <div className='relative z-10 w-full max-w-md'>
+          <img src='https://floatui.com/logo-dark.svg' width={150} />
+          <div className=' mt-16 space-y-3'>
+            <h3 className='text-white text-3xl font-bold'>
+              Start tracking your habits today.
+            </h3>
+            <p className='text-gray-300'>
+              Create an account and get access to all features, no credit card
+              required.
+            </p>
+          </div>
+        </div>
+        <div
+          className='absolute inset-0 my-auto h-[500px]'
+          style={{
+            background:
+              'linear-gradient(152.92deg, rgba(192, 132, 252, 0.2) 4.54%, rgba(232, 121, 249, 0.26) 34.2%, rgba(192, 132, 252, 0.1) 77.55%)',
+            filter: 'blur(118px)',
+          }}
+        ></div>
+      </div>
+      <div className='flex-1 flex items-center justify-center h-screen'>
+        <div className='w-full max-w-md space-y-8 px-4 bg-white text-gray-600 sm:px-0'>
           <Card className='p-6'>
             <div className='mx-auto grid w-[350px] gap-6'>
               {activeTab === 'login' && (
@@ -79,18 +83,7 @@ const AuthenticationPage = () => {
           </Card>
         </div>
       </div>
-      <div className='hidden lg:block relative'>
-        <div className='absolute inset-0 flex items-center justify-center'>
-          {/* <TypewriterEffectSmooth words={words} /> */}
-        </div>
-        <div className='absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_0%,black)]'></div>
-        <img
-          src={introImg2}
-          alt='Image'
-          className='h-full w-full object-contain dark:brightness-[0.7] dark:grayscale'
-        />
-      </div>
-    </div>
+    </main>
   );
 };
 

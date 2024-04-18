@@ -40,6 +40,10 @@ module.exports = {
         },
       },
       colors: {
+        primary_main: 'hsl(var(--primary-main))',
+        secondary_main: 'hsl(var(--secondary-main))',
+        app_primary_gray: 'hsl(var(--app-primary-gray))',
+        app_secondary_gray: 'hsl(var(--app-secondary-gray))',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

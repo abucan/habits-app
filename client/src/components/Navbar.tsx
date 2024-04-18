@@ -4,7 +4,7 @@ import { MenuIcon, XIcon } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+export const Navbar = () => {
   const [state, setState] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ const Navbar = () => {
           </a>
           <div className='md:hidden'>
             <button
-              className='text-gray-500 hover:text-gray-800'
+              className='text-gray-500 hover:text-app_primary_gray'
               onClick={() => setState(!state)}
             >
               {state ? (
@@ -40,7 +40,7 @@ const Navbar = () => {
           <ul className='justify-end items-center space-y-6 md:flex md:space-x-6 md:space-y-0'>
             {navLinks.map((item, idx) => {
               return (
-                <li key={idx} className='text-gray-700 hover:text-indigo-600'>
+                <li key={idx} className='text-gray-700 hover:text-primary_main'>
                   <a href={item.path} className='block'>
                     {item.title}
                   </a>
@@ -52,15 +52,15 @@ const Navbar = () => {
               <li>
                 <Link
                   to='/auth'
-                  className='block py-3 text-center text-gray-700 hover:text-indigo-600 border rounded-lg md:border-none'
+                  className='block py-3 text-center text-gray-700 hover:text-primary_main border rounded-lg md:border-none'
                 >
                   Log in
                 </Link>
               </li>
               <li>
                 <Link
-                  to='/auth'
-                  className='block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline'
+                  to='/auth?register=true'
+                  className='block py-3 px-4 font-medium text-center text-white bg-primary_main hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline'
                 >
                   Register
                 </Link>
@@ -72,5 +72,3 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;

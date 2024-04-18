@@ -9,14 +9,14 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-indigo-600 hover:bg-indigo-700 text-white',
+        default: 'bg-primary_main hover:bg-indigo-700 text-white',
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        secondary: 'text-gray-700 border hover:border-indigo-600',
+        secondary: 'text-gray-700 border hover:border-primary_main',
         shadow:
-          'shadow-md focus:shadow-none ring-offset-2 ring-indigo-600 focus:ring-2 text-white bg-indigo-600',
+          'shadow-md focus:shadow-none ring-offset-2 ring-primary_main focus:ring-2 text-white bg-primary_main',
         footer:
-          'block text-center text-white font-medium bg-indigo-600 duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg shadow-lg hover:shadow-none',
+          'block text-center text-white font-medium bg-primary_main duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg shadow-lg hover:shadow-none',
       },
       size: {
         sm: 'px-3 py-1.5 text-sm',

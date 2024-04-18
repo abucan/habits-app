@@ -1,8 +1,11 @@
-import { Features } from '@/components/Features';
-import { Footer } from '@/components/Footer';
-import { Hero } from '@/components/Hero';
-import { LogoShowcase } from '@/components/LogoShowcase';
-import Navbar from '@/components/Navbar';
+import {
+  Navbar,
+  Hero,
+  Features,
+  Benefits,
+  LogoShowcase,
+  Footer,
+} from '@/components';
 
 const WelcomePage = () => {
   return (
@@ -10,6 +13,7 @@ const WelcomePage = () => {
       <Navbar />
       <Hero />
       <Features />
+      <Benefits />
       <LogoShowcase />
       <Footer />
     </>

@@ -1,12 +1,12 @@
 import { BadgeCheck, Lightbulb, LucideIcon, SquareArrowUp } from 'lucide-react';
 
-interface Feature {
+interface Benefit {
   icon: LucideIcon;
   title: string;
   desc: string;
 }
 
-export const featuresList: Feature[] = [
+export const benefitsList: Benefit[] = [
   {
     icon: BadgeCheck,
     title: 'Increased Accountability',

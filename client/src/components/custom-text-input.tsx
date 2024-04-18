@@ -33,9 +33,7 @@ export const FormTextInput = ({
               type={name === 'password' ? 'password' : 'text'}
             />
           </FormControl>
-          {description && (
-            <FormDescription>{description}</FormDescription>
-          )}
+          {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
         </FormItem>
       )}

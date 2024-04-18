@@ -1,30 +1,57 @@
-import { PrimaryButton } from './buttons/PrimaryButton';
+import { APP_NAME, HERO_DESC, HERO_TITLE, NEWSLETTER } from '@/utils/constants';
+import { PrimaryButton } from './buttons/primary-button';
+import { ButtonEnums } from '@/ts/enums/app_enums';
+import { useState } from 'react';
+import { toast } from './ui/use-toast';
 
 export const Hero = () => {
+  const [email, setEmail] = useState('');
+
+  const mimicSubscription = (e: any) => {
+    e.preventDefault();
+    if (!email)
+      return toast({
+        title: 'Something went wrong.',
+        description: 'Please enter a valid email address.',
+        variant: 'destructive',
+        duration: 2000,
+      });
+    toast({
+      title: 'Subscribed!',
+      description: 'You have successfully subscribed to our newsletter.',
+      duration: 5000,
+      variant: 'success',
+    });
+    setEmail('');
+  };
+
   return (
     <section className='mt-10 md:mt-24 mx-auto max-w-screen-xl pb-4 px-4 items-start lg:flex md:px-8'>
       <div className='space-y-4 flex-1 sm:text-center lg:text-left'>
-        <h1 className='text-gray-800 font-bold text-4xl xl:text-5xl'>
-          Start tracking your habits with
-          <span className='text-indigo-600'> Daily</span>
+        <h1 className='text-app_primary_gray font-bold text-4xl xl:text-5xl'>
+          {HERO_TITLE}
+          <span className='text-primary_main'> {APP_NAME}</span>
         </h1>
         <p className='text-gray-500 max-w-xl leading-relaxed sm:mx-auto lg:ml-0'>
-          It is a long established fact that a reader will be distracted by the
-          readable content of a page when looking at its layout. The point of
-          using Lorem Ipsum
+          {HERO_DESC}
         </p>
         <div>
-          <p className='text-gray-800 py-3'>
-            Subscribe to our newsletter and we'll save your time
-          </p>
+          <p className='text-app_primary_gray py-3'>{NEWSLETTER}</p>
           <form className='items-center space-y-3 sm:justify-center sm:space-x-3 sm:space-y-0 sm:flex lg:justify-start'>
             <input
-              type='text'
+              type='email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder='Enter your email'
               className='text-gray-500 border outline-none p-3 rounded-md w-full sm:w-72'
             />
-            <PrimaryButton size={'md'} variant={'destructive'}>
-              Subscribe
+            <PrimaryButton
+              size={'md'}
+              variant={'destructive'}
+              onClick={mimicSubscription}
+              type='submit'
+            >
+              {ButtonEnums.SUBSCRIBE}
             </PrimaryButton>
           </form>
         </div>

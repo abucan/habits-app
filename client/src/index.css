@@ -4,6 +4,11 @@
 
   @layer base {
     :root {
+      --primary-main: 262.1 83.3% 57.8%;
+      --secondary-main: 187.89999999999998 85.7% 53.3%;
+      --app-primary-gray: 215 27.9% 16.9%;
+      --app-secondary-gray: 215 13.8% 34.1%;
+
       --background: 0 0% 100%;
       --foreground: 222.2 84% 4.9%;
 
