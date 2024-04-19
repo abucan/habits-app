@@ -4,6 +4,7 @@ import {
   VerifyPageEmail,
   ProtectedRoute,
   NotFoundPage,
+  DashboardPage,
 } from '@/pages';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <div>Dashboard</div>,
+        element: <DashboardPage />,
       },
     ],
   },

@@ -3,6 +3,7 @@ import AuthenticationPage from './authenticationPage/AuthenticationPage';
 import NotFoundPage from './notFoundPage/NotFoundPage';
 import VerifyPageEmail from './verifyEmailPage/VerifyEmailPage';
 import WelcomePage from './welcomePage/WelcomePage';
+import DashboardPage from './dashboardPage/DashboardPage';
 
 export {
   ProtectedRoute,
@@ -10,4 +11,5 @@ export {
   VerifyPageEmail,
   WelcomePage,
   NotFoundPage,
+  DashboardPage,
 };

@@ -7,6 +7,8 @@ import { Footer } from './footer';
 import { BenefitItem } from './benefit-item';
 import { FeatureItem } from './feature-item';
 import { FormTextInput } from './custom-text-input';
+import { Sidebar } from './sidebar';
+import { MainNavbar } from './main-navbar';
 
 export {
   Hero,
@@ -18,4 +20,6 @@ export {
   BenefitItem,
   FeatureItem,
   FormTextInput,
+  Sidebar,
+  MainNavbar,
 };
