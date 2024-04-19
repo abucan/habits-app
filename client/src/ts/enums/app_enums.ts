@@ -3,4 +3,6 @@ export const enum ButtonEnums {
   REGISTER = 'Register',
   SUBSCRIBE = 'Subscribe',
   START_NOW = 'Start now',
+  GO_BACK = 'Go back',
+  VISIT_HOME = 'Visit Homepage',
 }

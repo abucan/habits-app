@@ -4,7 +4,7 @@ export const BenefitItem = ({ icon, title, desc }: BenefitItemProps) => {
   const Icon = icon;
   return (
     <>
-      <div className='flex-none w-12 h-12 bg-gray-700 text-secondary_main rounded-lg flex items-center justify-center'>
+      <div className='flex-none w-12 h-12 bg-gray-700 text-primary_blue rounded-lg flex items-center justify-center'>
         <Icon />
       </div>
       <div>

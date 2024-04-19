@@ -8,6 +8,7 @@
       --secondary-main: 187.89999999999998 85.7% 53.3%;
       --app-primary-gray: 215 27.9% 16.9%;
       --app-secondary-gray: 215 13.8% 34.1%;
+      --primary-blue: 190 83% 45%;
 
       --background: 0 0% 100%;
       --foreground: 222.2 84% 4.9%;
@@ -83,3 +84,43 @@
   html {
     scroll-behavior: smooth;
   }
+
+  .custom-shape-divider-top-1713521912 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.custom-shape-divider-top-1713521912 svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 79px;
+}
+
+.custom-shape-divider-top-1713521912 .shape-fill {
+    fill: #FFFFFF;
+}
+
+.custom-shape-divider-top-1713522799 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1713522799 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 500px;
+}
+
+.custom-shape-divider-top-1713522799 .shape-fill {
+  fill: #FFFFFF;
+}

@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default: 'bg-primary_main hover:bg-indigo-700 text-white',
         destructive:
           'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-        secondary: 'text-gray-700 border hover:border-primary_main',
+        secondary: 'text-gray-700 border hover:border-primary_blue',
         shadow:
           'shadow-md focus:shadow-none ring-offset-2 ring-primary_main focus:ring-2 text-white bg-primary_main',
         footer:

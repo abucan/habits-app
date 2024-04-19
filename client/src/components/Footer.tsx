@@ -2,25 +2,24 @@ import { MoveRight } from 'lucide-react';
 import { navLinks } from '@/utils/navLinks';
 import { FOOTER_DESC } from '@/utils/constants';
 import { ButtonEnums } from '@/ts/enums/app_enums';
+import { Logo } from './logo';
+import { Link } from 'react-router-dom';
 
 export const Footer = () => {
   return (
     <footer className='pt-10'>
       <div className='max-w-screen-xl mx-auto px-4 text-app_secondary_gray md:px-8'>
         <div className='space-y-6 sm:max-w-md sm:mx-auto sm:text-center'>
-          <img
-            src='https://www.floatui.com/logo.svg'
-            className='w-32 sm:mx-auto'
-          />
+          <Logo footer />
           <p>{FOOTER_DESC}</p>
           <div className='items-center gap-x-3 space-y-3 sm:flex sm:justify-center sm:space-y-0'>
-            <a
-              href='/auth'
+            <Link
+              to='/auth'
               className='flex items-center justify-center gap-x-2 py-2 px-4 text-gray-700 hover:text-gray-500 font-medium duration-150 active:bg-gray-100 border rounded-lg md:inline-flex'
             >
               {ButtonEnums.START_NOW}
               <MoveRight className='h-5 w-5' />
-            </a>
+            </Link>
           </div>
         </div>
         <div className='mt-10 py-10 border-t items-center justify-between sm:flex'>

@@ -30,7 +30,7 @@ export const Hero = () => {
       <div className='space-y-4 flex-1 sm:text-center lg:text-left'>
         <h1 className='text-app_primary_gray font-bold text-4xl xl:text-5xl'>
           {HERO_TITLE}
-          <span className='text-primary_main'> {APP_NAME}</span>
+          <span className='text-primary_blue'> {APP_NAME}</span>
         </h1>
         <p className='text-gray-500 max-w-xl leading-relaxed sm:mx-auto lg:ml-0'>
           {HERO_DESC}
@@ -47,7 +47,7 @@ export const Hero = () => {
             />
             <PrimaryButton
               size={'md'}
-              variant={'destructive'}
+              variant={'secondary'}
               onClick={mimicSubscription}
               type='submit'
             >
