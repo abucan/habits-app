@@ -15,7 +15,7 @@ export const Footer = () => {
           <div className='items-center gap-x-3 space-y-3 sm:flex sm:justify-center sm:space-y-0'>
             <Link
               to='/auth'
-              className='flex items-center justify-center gap-x-2 py-2 px-4 text-gray-700 hover:text-gray-500 font-medium duration-150 active:bg-gray-100 border rounded-lg md:inline-flex'
+              className='flex items-center justify-center gap-x-2 py-2 px-4 bg-white text-gray-700 hover:text-gray-500 font-medium duration-150 active:bg-gray-100 border rounded-lg md:inline-flex'
             >
               {ButtonEnums.START_NOW}
               <MoveRight className='h-5 w-5' />

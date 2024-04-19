@@ -9,14 +9,14 @@ import {
 
 const WelcomePage = () => {
   return (
-    <>
+    <div className='bg-slate-50'>
       <Navbar />
       <Hero />
       <Features />
       <Benefits />
       <LogoShowcase />
       <Footer />
-    </>
+    </div>
   );
 };
 

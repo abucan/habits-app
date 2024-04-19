@@ -63,7 +63,7 @@ const AuthenticationPage = () => {
               <Logo width={200} />
             </Link>
           </div>
-          <Card className='p-6 bg-slate-50 shadow-none'>
+          <Card className='p-6 bg-white shadow-none'>
             <div className='mx-auto grid w-[350px] gap-6'>
               {activeTab === 'login' && (
                 <AuthHeader
