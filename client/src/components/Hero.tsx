@@ -1,4 +1,10 @@
-import { APP_NAME, HERO_DESC, HERO_TITLE, NEWSLETTER } from '@/utils/constants';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  APP_NAME,
+  HERO_DESC,
+  HERO_TITLE,
+  NEWSLETTER,
+} from '@/utils/constants';
 import { PrimaryButton } from './buttons/primary-button';
 import { ButtonEnums } from '@/ts/enums/app_enums';
 import { useState } from 'react';
@@ -18,7 +24,8 @@ export const Hero = () => {
       });
     toast({
       title: 'Subscribed!',
-      description: 'You have successfully subscribed to our newsletter.',
+      description:
+        'You have successfully subscribed to our newsletter.',
       duration: 5000,
       variant: 'success',
     });
