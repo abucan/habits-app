@@ -9,7 +9,7 @@ const NotFoundPage = () => {
     <main>
       <div className='max-w-screen-xl mx-auto px-4 flex items-center justify-start h-screen md:px-8'>
         <div className='max-w-lg mx-auto space-y-3 text-center'>
-          <h3 className='text-primary_main font-semibold'>404 Error</h3>
+          <h3 className='text-primary_blue font-semibold'>404 Error</h3>
           <p className='text-app_primary_gray text-4xl font-semibold sm:text-5xl'>
             Page not found
           </p>
@@ -20,7 +20,7 @@ const NotFoundPage = () => {
           <div className='flex flex-wrap items-center justify-center gap-3'>
             <button
               onClick={goBack}
-              className='block py-2 px-4 text-white font-medium bg-primary_main duration-150 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg'
+              className='block py-2 px-4 text-white font-medium bg-primary_blue duration-150 rounded-lg'
             >
               Go back
             </button>

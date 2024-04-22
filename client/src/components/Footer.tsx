@@ -4,6 +4,7 @@ import { FOOTER_DESC } from '@/utils/constants';
 import { ButtonEnums } from '@/ts/enums/app_enums';
 import { Logo } from './logo';
 import { Link } from 'react-router-dom';
+import { FooterText } from './footer-text';
 
 export const Footer = () => {
   return (
@@ -17,15 +18,13 @@ export const Footer = () => {
               to='/auth'
               className='flex items-center justify-center gap-x-2 py-2 px-4 bg-white text-gray-700 hover:text-gray-500 font-medium duration-150 active:bg-gray-100 border rounded-lg md:inline-flex'
             >
-              {ButtonEnums.START_NOW}
+              {ButtonEnums.DASHBOARD}
               <MoveRight className='h-5 w-5' />
             </Link>
           </div>
         </div>
         <div className='mt-10 py-10 border-t items-center justify-between sm:flex'>
-          <p className='text-gray-300'>
-            {`© ${new Date().getFullYear()} Daily Inc. All rights reserved.`}
-          </p>
+          <FooterText />
           <ul className='flex flex-wrap items-center gap-4 mt-6 sm:text-sm sm:mt-0'>
             {navLinks.map((item, idx) => (
               <li className='text-app_primary_gray hover:text-gray-500 duration-150'>

@@ -24,3 +24,14 @@ export interface BenefitItemProps {
   title: string;
   desc: string;
 }
+
+export interface SidebarRouteItemProps {
+  icon: LucideIcon;
+  title: string;
+  href: string;
+}
+
+export interface AddHabitDialogProps {
+  children: React.ReactNode;
+  mode?: 'modal' | 'redirect';
+}
