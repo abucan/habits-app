@@ -18,6 +18,7 @@ import { ModeToggle } from './mode-toggle';
 import { UserLogout } from './user-logout';
 import { AddHabitDialog } from './add-habit-dialog';
 import { AddHabitForm } from './add-habit-form';
+import { CustomSelectInput } from './custom-select-icon';
 
 export {
   Hero,
@@ -40,4 +41,5 @@ export {
   UserLogout,
   AddHabitDialog,
   AddHabitForm,
+  CustomSelectInput,
 };
